@@ -34,6 +34,12 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "xnCheck" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "xnCheck — аудит VPN-подписок и VLESS-ключей" },
+      { name: "twitter:title", content: "xnCheck — аудит VPN-подписок и VLESS-ключей" },
+      { property: "og:description", content: "Проверка VPN-подписок и VLESS-ключей на безопасность, скорость и соответствие белым спискам SNI/IP. AI-анализ для пользователей в РФ." },
+      { name: "twitter:description", content: "Проверка VPN-подписок и VLESS-ключей на безопасность, скорость и соответствие белым спискам SNI/IP. AI-анализ для пользователей в РФ." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2746f951-820c-48c5-a62b-925c10b7151a/id-preview-17f0a8b1--24b54ddb-ea0e-48b5-9651-89c9b7456667.lovable.app-1776711980850.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2746f951-820c-48c5-a62b-925c10b7151a/id-preview-17f0a8b1--24b54ddb-ea0e-48b5-9651-89c9b7456667.lovable.app-1776711980850.png" },
     ],
     links: [
       {

@@ -14,7 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      checks: {
+        Row: {
+          ai_summary: string | null
+          created_at: string
+          id: string
+          input_preview: string
+          input_type: string
+          safety_score: number
+          servers: Json
+          total_servers: number
+          whitelisted_count: number
+        }
+        Insert: {
+          ai_summary?: string | null
+          created_at?: string
+          id?: string
+          input_preview: string
+          input_type: string
+          safety_score?: number
+          servers?: Json
+          total_servers?: number
+          whitelisted_count?: number
+        }
+        Update: {
+          ai_summary?: string | null
+          created_at?: string
+          id?: string
+          input_preview?: string
+          input_type?: string
+          safety_score?: number
+          servers?: Json
+          total_servers?: number
+          whitelisted_count?: number
+        }
+        Relationships: []
+      }
+      whitelist_ip: {
+        Row: {
+          ip: string
+        }
+        Insert: {
+          ip: string
+        }
+        Update: {
+          ip?: string
+        }
+        Relationships: []
+      }
+      whitelist_sni: {
+        Row: {
+          sni: string
+        }
+        Insert: {
+          sni: string
+        }
+        Update: {
+          sni?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -1,0 +1,10 @@
+project_id = "sgawprzyaymtgfqwsiwj"
+
+[functions.admin-import-whitelists]
+verify_jwt = false
+
+[functions.check-subscription]
+verify_jwt = false
+
+[functions.deep-check]
+verify_jwt = false

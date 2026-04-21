@@ -311,7 +311,9 @@ Deno.serve(async (req) => {
 Сводка по конфигу:
 - Протоколов: ${[...new Set(servers.map((s) => s.protocol))].join(", ")}
 - Серверов всего: ${servers.length}
-- В белом списке (SNI или IP): ${whitelistedCount}/${servers.length} (${safetyScore}%)
+- В белом списке (SNI или IP): ${whitelistedCount}/${servers.length}
+- Уникальных SNI: ${uniqueSnis}, уникальных подсетей: ${uniqueSubnets}
+- Композитная оценка ПОДПИСКИ: ${safetyScore}/100 (качество ${qualityScore}/40, белый список ${whitelistScore}/25, разнообразие ${varietyScore}/20, протокол ${protocolScore}/15)
 
 Серверы:
 ${summary}${servers.length > 30 ? `\n...и ещё ${servers.length - 30} серверов` : ""}`;

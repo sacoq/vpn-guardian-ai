@@ -14,12 +14,22 @@ export type ServerInfo = {
   raw?: string;
 };
 
+export type ScoreBreakdown = {
+  quality: number;
+  whitelist: number;
+  variety: number;
+  protocol: number;
+  uniqueSnis: number;
+  uniqueSubnets: number;
+};
+
 export type CheckResult = {
   id?: string;
   inputType: "subscription" | "vless";
   totalServers: number;
   whitelistedCount: number;
   safetyScore: number;
+  scoreBreakdown?: ScoreBreakdown;
   aiSummary: string;
   servers: ServerInfo[];
 };

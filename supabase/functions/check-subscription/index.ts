@@ -366,6 +366,7 @@ ${summary}${servers.length > 30 ? `\n...и ещё ${servers.length - 30} сер�
       totalServers: servers.length,
       whitelistedCount,
       safetyScore,
+      scoreBreakdown,
       aiSummary,
       servers,
     }), { headers: { ...cors, "Content-Type": "application/json" } });

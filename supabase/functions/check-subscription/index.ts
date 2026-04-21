@@ -227,7 +227,8 @@ Deno.serve(async (req) => {
       const sniOrHost = (s.sni || (isIp(s.host) ? "" : s.host)).toLowerCase();
       s.whitelisted_sni = sniOrHost ? sniSet.has(sniOrHost) : false;
       s.whitelisted_ip = (s.resolved_ips || []).some((ip) => ipSet.has(ip));
-      s.in_whitelist = s.whitelisted_sni || s.whitelisted_ip;
+      // Сервер считается "в белом списке" ТОЛЬКО если И SNI, И IP оба в whitelist
+      s.in_whitelist = s.whitelisted_sni && s.whitelisted_ip;
       if (s.in_whitelist) whitelistedCount++;
     }
 

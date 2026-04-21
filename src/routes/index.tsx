@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { CheckForm } from "@/components/check-form";
-import { ResultPanel } from "@/components/result-panel";
+import { ResultPanel } from "@/components/result-panel.tsx";
 import type { CheckResult } from "@/lib/check-types";
 import { Toaster } from "@/components/ui/sonner";
 import { ShieldCheck, Zap, Brain } from "lucide-react";

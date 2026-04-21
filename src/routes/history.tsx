@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { SiteHeader } from "@/components/site-header";
-import { ResultPanel } from "@/components/result-panel.tsx";
+import { ResultPanel } from "@/components/result-panel";
 import { supabase } from "@/integrations/supabase/client";
 import type { CheckResult } from "@/lib/check-types";
 import { Loader2, History as HistoryIcon, ShieldCheck, ShieldAlert } from "lucide-react";

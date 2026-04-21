@@ -231,7 +231,62 @@ Deno.serve(async (req) => {
       if (s.in_whitelist) whitelistedCount++;
     }
 
-    const safetyScore = Math.round((whitelistedCount / servers.length) * 100);
+    // ===== Композитная оценка подписки =====
+    // 1. Качество конфигов (40 баллов): REALITY/TLS, vision flow, нестандартные порты
+    // 2. Соответствие белым спискам (25 баллов): SNI/IP в whitelist
+    // 3. Количество и разнообразие (20 баллов): количество серверов, уникальные SNI, география (по подсетям)
+    // 4. Безопасность протокола (15 баллов): vless/trojan vs ss
+    let qualityScore = 0;     // /40
+    let whitelistScore = 0;   // /25
+    let varietyScore = 0;     // /20
+    let protocolScore = 0;    // /15
+
+    // 1. Качество
+    let qSum = 0;
+    for (const s of servers) {
+      let v = 0;
+      if (s.security === "reality") v += 10;
+      else if (s.security === "tls") v += 6;
+      else v += 1;
+      if (s.flow?.includes("vision")) v += 3;
+      if (s.port === 443 || s.port === 8443) v += 2;
+      else if (s.port < 1024) v += 1;
+      qSum += Math.min(v, 15);
+    }
+    qualityScore = Math.round((qSum / (servers.length * 15)) * 40);
+
+    // 2. Белые списки
+    whitelistScore = Math.round((whitelistedCount / servers.length) * 25);
+
+    // 3. Разнообразие
+    const uniqueSnis = new Set(servers.map((s) => s.sni).filter(Boolean)).size;
+    const uniqueSubnets = new Set(
+      servers.flatMap((s) => (s.resolved_ips || []).map((ip) => ip.split(".").slice(0, 2).join(".")))
+    ).size;
+    const countScore = Math.min(servers.length / 20, 1) * 8;        // до 8 за 20+ серверов
+    const sniDivScore = Math.min(uniqueSnis / 10, 1) * 6;           // до 6 за 10+ уникальных SNI
+    const geoScore = Math.min(uniqueSubnets / 8, 1) * 6;            // до 6 за 8+ подсетей
+    varietyScore = Math.round(countScore + sniDivScore + geoScore);
+
+    // 4. Протокол
+    let pSum = 0;
+    for (const s of servers) {
+      if (s.protocol === "vless") pSum += 15;
+      else if (s.protocol === "trojan") pSum += 12;
+      else if (s.protocol === "shadowsocks") pSum += 6;
+      else pSum += 3;
+    }
+    protocolScore = Math.round((pSum / (servers.length * 15)) * 15);
+
+    const safetyScore = Math.min(100, qualityScore + whitelistScore + varietyScore + protocolScore);
+    const scoreBreakdown = {
+      quality: qualityScore,
+      whitelist: whitelistScore,
+      variety: varietyScore,
+      protocol: protocolScore,
+      uniqueSnis,
+      uniqueSubnets,
+    };
 
     // AI analysis via Lovable AI
     let aiSummary = "";
@@ -256,7 +311,9 @@ Deno.serve(async (req) => {
 Сводка по конфигу:
 - Протоколов: ${[...new Set(servers.map((s) => s.protocol))].join(", ")}
 - Серверов всего: ${servers.length}
-- В белом списке (SNI или IP): ${whitelistedCount}/${servers.length} (${safetyScore}%)
+- В белом списке (SNI или IP): ${whitelistedCount}/${servers.length}
+- Уникальных SNI: ${uniqueSnis}, уникальных подсетей: ${uniqueSubnets}
+- Композитная оценка ПОДПИСКИ: ${safetyScore}/100 (качество ${qualityScore}/40, белый список ${whitelistScore}/25, разнообразие ${varietyScore}/20, протокол ${protocolScore}/15)
 
 Серверы:
 ${summary}${servers.length > 30 ? `\n...и ещё ${servers.length - 30} серверов` : ""}`;
@@ -309,6 +366,7 @@ ${summary}${servers.length > 30 ? `\n...и ещё ${servers.length - 30} сер�
       totalServers: servers.length,
       whitelistedCount,
       safetyScore,
+      scoreBreakdown,
       aiSummary,
       servers,
     }), { headers: { ...cors, "Content-Type": "application/json" } });

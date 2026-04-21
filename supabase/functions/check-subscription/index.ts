@@ -227,7 +227,8 @@ Deno.serve(async (req) => {
       const sniOrHost = (s.sni || (isIp(s.host) ? "" : s.host)).toLowerCase();
       s.whitelisted_sni = sniOrHost ? sniSet.has(sniOrHost) : false;
       s.whitelisted_ip = (s.resolved_ips || []).some((ip) => ipSet.has(ip));
-      s.in_whitelist = s.whitelisted_sni || s.whitelisted_ip;
+      // Сервер считается "в белом списке" ТОЛЬКО если И SNI, И IP оба в whitelist
+      s.in_whitelist = s.whitelisted_sni && s.whitelisted_ip;
       if (s.in_whitelist) whitelistedCount++;
     }
 
@@ -311,7 +312,7 @@ Deno.serve(async (req) => {
 Сводка по конфигу:
 - Протоколов: ${[...new Set(servers.map((s) => s.protocol))].join(", ")}
 - Серверов всего: ${servers.length}
-- В белом списке (SNI или IP): ${whitelistedCount}/${servers.length}
+- В белом списке (SNI И IP одновременно): ${whitelistedCount}/${servers.length}
 - Уникальных SNI: ${uniqueSnis}, уникальных подсетей: ${uniqueSubnets}
 - Композитная оценка ПОДПИСКИ: ${safetyScore}/100 (качество ${qualityScore}/40, белый список ${whitelistScore}/25, разнообразие ${varietyScore}/20, протокол ${protocolScore}/15)
 

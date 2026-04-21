@@ -144,7 +144,7 @@ async function resolveDoH(host: string): Promise<string[]> {
 
 async function fetchSubscription(url: string): Promise<string> {
   const r = await fetch(url, {
-    headers: { "User-Agent": "Happ/1.0" },
+    headers: { "User-Agent": "Happ/2.7.0/Windows/2604031533507" },
     signal: AbortSignal.timeout(15000),
   });
   if (!r.ok) throw new Error(`subscription fetch failed: ${r.status}`);

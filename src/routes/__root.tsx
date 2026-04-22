@@ -38,8 +38,8 @@ export const Route = createRootRoute({
       { name: "twitter:title", content: "xnCheck — аудит VPN-подписок и VLESS-ключей" },
       { property: "og:description", content: "Проверка VPN-подписок и VLESS-ключей на безопасность, скорость и соответствие белым спискам SNI/IP. AI-анализ для пользователей в РФ." },
       { name: "twitter:description", content: "Проверка VPN-подписок и VLESS-ключей на безопасность, скорость и соответствие белым спискам SNI/IP. AI-анализ для пользователей в РФ." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2746f951-820c-48c5-a62b-925c10b7151a/id-preview-17f0a8b1--24b54ddb-ea0e-48b5-9651-89c9b7456667.lovable.app-1776711980850.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2746f951-820c-48c5-a62b-925c10b7151a/id-preview-17f0a8b1--24b54ddb-ea0e-48b5-9651-89c9b7456667.lovable.app-1776711980850.png" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/67286805-2015-4db8-a8ce-4f54132a92f9" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/67286805-2015-4db8-a8ce-4f54132a92f9" },
     ],
     links: [
       {

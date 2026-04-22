@@ -1,10 +1,9 @@
-{
-  "name": "vpn-guardian-ai",
-  "compatibility_date": "2026-04-20",
-  "compatibility_flags": [],
-  "assets": {
-    "directory": ".output/public",
-    "binding": "ASSETS"
-  }
-}
+name = "vpn-guardian-ai"
+compatibility_date = "2026-04-20"
+compatibility_flags = []
+
+[assets]
+directory = ".output/public"
+binding = "ASSETS"
+
 pages_build_output_dir = "dist"

@@ -1,6 +1,5 @@
 {
   "name": "vpn-guardian-ai",
-  "main": ".output/server/index.mjs",
   "compatibility_date": "2026-04-20",
   "compatibility_flags": [],
   "assets": {
